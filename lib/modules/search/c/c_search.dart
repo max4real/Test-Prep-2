@@ -5,20 +5,20 @@ import 'package:hive/hive.dart';
 import 'package:test_prep_2/modules/home/m/m_movie_card.dart';
 import 'package:test_prep_2/modules/search/m/hive/h_cache_result.dart';
 import 'package:test_prep_2/utli/const/hive_box_name.dart';
+import 'package:test_prep_2/utli/controller/data_controller.dart';
 import 'package:test_prep_2/utli/services/dialog/dialog_service.dart';
 import 'package:test_prep_2/utli/services/network_service/api_end_points.dart';
 import 'package:test_prep_2/utli/services/network_service/api_service.dart';
 
 class MovieSearchController extends GetxController {
+  final DataController dataController = Get.find();
   final TextEditingController txtSearch = TextEditingController();
-
   final RxBool xLoading = false.obs;
   final RxList<MovieCardModel> searchResults = <MovieCardModel>[].obs;
   final RxString query = ''.obs;
 
   late Box<CachedResult> cacheBox;
 
-  static const cacheDuration = Duration(minutes: 30);
 
   @override
   void onInit() {
@@ -58,7 +58,7 @@ class MovieSearchController extends GetxController {
 
     final cached = cacheBox.get(value);
     if (cached != null &&
-        DateTime.now().difference(cached.timestamp) < cacheDuration) {
+        DateTime.now().difference(cached.timestamp) < dataController.cacheDuration) {
       searchResults.assignAll(decodeMovieList(cached.json));
       xLoading.value = false;
       return;
