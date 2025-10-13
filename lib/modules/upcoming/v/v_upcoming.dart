@@ -53,12 +53,13 @@ class _UpcomingPageState extends State<UpcomingPage> {
                   if (controller.xListLoading) {
                     return GridView.builder(
                       padding: const EdgeInsets.all(8),
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        mainAxisSpacing: 12,
-                        crossAxisSpacing: 12,
-                        childAspectRatio: 0.66,
-                      ),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: 2,
+                            mainAxisSpacing: 12,
+                            crossAxisSpacing: 12,
+                            childAspectRatio: 0.66,
+                          ),
                       itemCount: 10,
                       itemBuilder: (context, index) {
                         return MovieCardShimmer();

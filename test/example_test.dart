@@ -51,7 +51,6 @@ void main() {
   testWidgets('Check if button shows text', (tester) async {
     await tester.pumpWidget(TestWidget());
 
-    // Verify button text
     expect(find.text('Click me'), findsOneWidget);
   });
 
