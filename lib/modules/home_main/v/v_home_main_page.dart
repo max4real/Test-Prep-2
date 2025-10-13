@@ -8,6 +8,7 @@ import 'package:test_prep_2/modules/home_main/v/w_keep_alive_page.dart';
 import 'package:test_prep_2/modules/home/v/v_home.dart';
 import 'package:test_prep_2/modules/popular/v/v_popular.dart';
 import 'package:test_prep_2/modules/upcoming/v/v_upcoming.dart';
+import 'package:test_prep_2/utli/const/theme/app_color.dart';
 import 'package:test_prep_2/utli/const/theme/m_theme_data.dart';
 
 class HomeMainPage extends StatefulWidget {
@@ -63,7 +64,7 @@ class _HomeMainPageState extends State<HomeMainPage> {
                 TablerIcons.calendar_time,
                 TablerIcons.flame,
               ];
-              final labels = ['Now Showing', 'Upcoming', 'Popular'];
+              final labels = ['Now Showing', 'Coming Soon', 'Popular'];
 
               return Expanded(
                 child: WiggleButton(
@@ -80,7 +81,10 @@ class _HomeMainPageState extends State<HomeMainPage> {
                         Icon(
                           icons[index],
                           size: 26,
-                          color: isSelected ? theme.iconMain : theme.textThird,
+                          color:
+                              isSelected
+                                  ? AppColor.secondColor
+                                  : theme.textThird,
                         ),
                         const SizedBox(height: 4),
                         Text(

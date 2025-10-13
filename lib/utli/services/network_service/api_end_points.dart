@@ -1,7 +1,9 @@
 class ApiEndPoint {
-  static const String imageBaseUrl = 'https://image.tmdb.org/t/p/w500';
+  static String imageBaseUrl(String size) =>
+      'https://image.tmdb.org/t/p/w$size';
 
   static const String nowShowing = "movie/now_playing";
   static const String upcoming = "movie/upcoming";
   static const String popular = "movie/popular";
+  static String getDetail(String movieId) => "movie/$movieId";
 }

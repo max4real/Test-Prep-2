@@ -27,8 +27,10 @@ class UpcomingController extends GetxController {
   Future<void> getMovieList({required bool isAppend}) async {
     if (isAppend) {
       xListLoadingMore = true;
+      update();
     } else {
       xListLoading = true;
+      update();
     }
 
     final response = await ApiService().get(
@@ -49,7 +51,7 @@ class UpcomingController extends GetxController {
         allList = isAppend ? [...allList, ...newList] : newList;
       },
       onFailure: (p0) {
-        DialogService().showMessageDialog("${p0['_metadata']?['message']}");
+        DialogService().showMessageDialog("Something went wrong");
       },
     );
     if (isAppend) {

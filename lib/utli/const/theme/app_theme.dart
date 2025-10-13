@@ -59,6 +59,8 @@ class CustomTheme {
         dateBgColor: Color(0x1abababa),
         dateFgColor: Color(0xff243b56),
         otherBtnBg: Color(0xFF1A1E27),
+        shimmerBaseColor: const Color(0xffE0E0E0),
+        shimmerHighlightColor: const Color(0xffF5F5F5),
       ),
     ],
   );
@@ -109,6 +111,8 @@ class CustomTheme {
         switchInactiveColor: Color(0xff3C3C3C),
         widgerOverlayBg: Color(0xff3a3a3a),
         otherBtnBg: Color(0xffeeeeee),
+        shimmerBaseColor: const Color(0xff2C2C2C),
+        shimmerHighlightColor: const Color(0xff3A3A3A),
       ),
     ],
   );

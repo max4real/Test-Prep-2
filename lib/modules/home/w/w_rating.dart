@@ -16,7 +16,7 @@ class RatingBadge extends StatelessWidget {
       ),
       child: Row(
         children: [
-          Icon(TablerIcons.star_filled, color: AppColor.almostPink, size: 14),
+          Icon(TablerIcons.star_filled, color: AppColor.secondColor, size: 14),
           const SizedBox(width: 4),
           Text(
             rating.toStringAsFixed(1),

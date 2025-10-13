@@ -23,6 +23,8 @@ class ThemeExtras extends ThemeExtension<ThemeExtras> {
   final Color dateBgColor;
   final Color dateFgColor;
   final Color otherBtnBg;
+  final Color shimmerBaseColor;
+  final Color shimmerHighlightColor;
 
   ThemeExtras({
     required this.scaffoldBg,
@@ -46,6 +48,8 @@ class ThemeExtras extends ThemeExtension<ThemeExtras> {
     required this.dateBgColor,
     required this.dateFgColor,
     required this.otherBtnBg,
+    required this.shimmerBaseColor,
+    required this.shimmerHighlightColor,
   });
   @override
   ThemeExtension<ThemeExtras> copyWith() {
@@ -71,6 +75,8 @@ class ThemeExtras extends ThemeExtension<ThemeExtras> {
       dateBgColor: dateBgColor,
       dateFgColor: dateFgColor,
       otherBtnBg: otherBtnBg,
+      shimmerBaseColor: shimmerBaseColor,
+      shimmerHighlightColor: shimmerHighlightColor,
     );
   }
 
@@ -102,6 +108,8 @@ class ThemeExtras extends ThemeExtension<ThemeExtras> {
       dateBgColor: dateBgColor,
       dateFgColor: dateFgColor,
       otherBtnBg: otherBtnBg,
+      shimmerBaseColor: shimmerBaseColor,
+      shimmerHighlightColor: shimmerHighlightColor,
     );
   }
 }
