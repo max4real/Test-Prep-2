@@ -1,10 +1,12 @@
+import 'dart:convert';
+
 class MovieCardModel {
   final int id;
   final String title;
   final String originalTitle;
   final String overview;
   final String originalLanguage;
-  final String? posterPath;
+  final String posterPath;
   final String? backdropPath;
   final List<int> genreIds;
   final bool adult;
@@ -20,7 +22,7 @@ class MovieCardModel {
     required this.originalTitle,
     required this.overview,
     required this.originalLanguage,
-    this.posterPath,
+    required this.posterPath,
     this.backdropPath,
     required this.genreIds,
     required this.adult,
@@ -67,4 +69,34 @@ class MovieCardModel {
     }
     return null;
   }
+}
+
+List<MovieCardModel> decodeMovieList(String jsonString) {
+  final List<dynamic> list = json.decode(jsonString);
+  return list.map((e) => MovieCardModel.fromMap(e)).toList();
+}
+
+String encodeMovieList(List<MovieCardModel> list) {
+  final List<Map<String, dynamic>> maps =
+      list
+          .map(
+            (e) => {
+              'id': e.id,
+              'title': e.title,
+              'original_title': e.originalTitle,
+              'overview': e.overview,
+              'original_language': e.originalLanguage,
+              'poster_path': e.posterPath,
+              'backdrop_path': e.backdropPath,
+              'genre_ids': e.genreIds,
+              'adult': e.adult,
+              'video': e.video,
+              'popularity': e.popularity,
+              'vote_average': e.voteAverage,
+              'vote_count': e.voteCount,
+              'release_date': e.releaseDate?.toIso8601String(),
+            },
+          )
+          .toList();
+  return json.encode(maps);
 }

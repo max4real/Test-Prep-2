@@ -64,7 +64,7 @@ class _HomeMainPageState extends State<HomeMainPage> {
                 TablerIcons.calendar_time,
                 TablerIcons.flame,
               ];
-              final labels = ['Now Showing', 'Coming Soon', 'Popular'];
+              final labels = ['Now Showing', 'Upcoming', 'Popular'];
 
               return Expanded(
                 child: WiggleButton(

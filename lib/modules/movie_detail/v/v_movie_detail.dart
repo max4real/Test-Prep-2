@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 import 'package:test_prep_2/core/extensions/double_extension.dart';
 import 'package:test_prep_2/core/extensions/int_extension.dart';
 import 'package:test_prep_2/core/widget/w_custom_loading.dart';
@@ -15,7 +16,12 @@ import 'package:test_prep_2/utli/services/network_service/api_end_points.dart';
 
 class MovieDetailPage extends StatefulWidget {
   final MovieCardModel movie;
-  const MovieDetailPage({super.key, required this.movie});
+  final String heroKey;
+  const MovieDetailPage({
+    super.key,
+    required this.movie,
+    required this.heroKey,
+  });
 
   @override
   State<MovieDetailPage> createState() => _MovieDetailPageState();
@@ -33,8 +39,8 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
   @override
   Widget build(BuildContext context) {
     final posterUrl =
-        widget.movie.posterPath != null
-            ? '${ApiEndPoint.imageBaseUrl("500")}${widget.movie.posterPath}'
+        widget.movie.posterPath.isNotEmpty
+            ? '${ApiEndPoint.imageBaseUrl("300")}${widget.movie.posterPath}'
             : null;
     final theme = Theme.of(context).extension<ThemeExtras>()!;
 
@@ -53,7 +59,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                     children: [
                       if (posterUrl != null)
                         Hero(
-                          tag: widget.movie.id.toString(),
+                          tag: "${widget.heroKey}_${widget.movie.id}",
                           child: CachedNetworkImage(
                             imageUrl: posterUrl,
                             width: double.infinity,
@@ -76,7 +82,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                                 ),
                           ),
                         ),
-                  
+
                       // Overlay
                       Positioned.fill(
                         child: Container(
@@ -93,7 +99,7 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                           ),
                         ),
                       ),
-                  
+
                       // Title over Poster
                       Positioned(
                         bottom: 24,
@@ -111,9 +117,9 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            const SizedBox(height: 4),
+                            8.heightBox,
                             Text(
-                              'Release: ${widget.movie.releaseDate?.toLocal().toIso8601String().split('T')[0] ?? 'Unknown'}',
+                              'Release: ${widget.movie.releaseDate != null ? DateFormat('MMMM d, y').format(widget.movie.releaseDate!.toLocal()) : 'Unknown'}',
                               style: const TextStyle(
                                 color: Colors.white70,
                                 fontSize: 14,

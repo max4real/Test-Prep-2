@@ -6,4 +6,5 @@ class ApiEndPoint {
   static const String upcoming = "movie/upcoming";
   static const String popular = "movie/popular";
   static String getDetail(String movieId) => "movie/$movieId";
+  static const String searchMovie = "search/movie";
 }

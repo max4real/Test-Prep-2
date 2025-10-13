@@ -94,6 +94,7 @@ class PopularPageState extends State<PopularPage> {
                               ) {
                                 return MovieCard(
                                   movie: controller.allList[index],
+                                  heroKey: 'fromPopular',
                                 );
                               }, childCount: controller.allList.length),
                               gridDelegate:

@@ -94,6 +94,7 @@ class _UpcomingPageState extends State<UpcomingPage> {
                               ) {
                                 return MovieCard(
                                   movie: controller.allList[index],
+                                  heroKey: 'fromUpcoming',
                                 );
                               }, childCount: controller.allList.length),
                               gridDelegate:

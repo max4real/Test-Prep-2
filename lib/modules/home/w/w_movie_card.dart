@@ -12,18 +12,19 @@ import 'package:get/get.dart';
 
 class MovieCard extends StatelessWidget {
   final MovieCardModel movie;
-  const MovieCard({super.key, required this.movie});
+  final String heroKey;
+  const MovieCard({super.key, required this.movie, required this.heroKey});
 
   @override
   Widget build(BuildContext context) {
     final posterUrl =
-        movie.posterPath != null && movie.posterPath!.isNotEmpty
-            ? '${ApiEndPoint.imageBaseUrl("200")}${movie.posterPath}'
+        movie.posterPath.isNotEmpty
+            ? '${ApiEndPoint.imageBaseUrl("300")}${movie.posterPath}'
             : null;
 
     return GestureDetector(
       onTap: () {
-        Get.to(() => MovieDetailPage(movie: movie));
+        Get.to(() => MovieDetailPage(movie: movie, heroKey: heroKey));
       },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(12),
@@ -33,7 +34,7 @@ class MovieCard extends StatelessWidget {
             // Poster
             if (posterUrl != null)
               Hero(
-                tag: movie.id.toString(),
+                tag: "${heroKey}_${movie.id}",
                 child: CachedNetworkImage(
                   imageUrl: posterUrl,
                   fit: BoxFit.cover,
@@ -104,25 +105,27 @@ class MovieCard extends StatelessWidget {
                       fontSize: 14,
                     ),
                   ),
-                  4.heightBox,
-                  Row(
-                    children: [
-                      const Icon(
-                        TablerIcons.calendar,
-                        color: Colors.white,
-                        size: 14,
-                      ),
-                      4.widthBox,
-                      Text(
-                        movie.releaseDate!.year.toString(),
-                        style: TextStyle(
-                          color: Colors.white70,
-                          fontSize: 12,
-                          fontWeight: FontWeight.w700,
+                  if (movie.releaseDate != null) ...[
+                    4.heightBox,
+                    Row(
+                      children: [
+                        const Icon(
+                          TablerIcons.calendar,
+                          color: Colors.white,
+                          size: 14,
                         ),
-                      ),
-                    ],
-                  ),
+                        4.widthBox,
+                        Text(
+                          movie.releaseDate!.year.toString(),
+                          style: TextStyle(
+                            color: Colors.white70,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ],
                 ],
               ),
             ),

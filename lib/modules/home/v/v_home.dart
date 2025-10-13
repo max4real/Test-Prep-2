@@ -8,6 +8,7 @@ import 'package:test_prep_2/core/widget/w_wiggle_button.dart';
 import 'package:test_prep_2/modules/home/c/c_home.dart';
 import 'package:test_prep_2/modules/home/w/w_movie_card.dart';
 import 'package:test_prep_2/modules/home/w/w_movie_card_shimmer.dart';
+import 'package:test_prep_2/modules/search/v/v_serch_page.dart';
 import 'package:test_prep_2/utli/const/theme/m_theme_data.dart';
 import 'package:get/get.dart';
 
@@ -50,7 +51,9 @@ class _HomePageState extends State<HomePage> {
             includePlus: false,
             title: 'Now Showing',
             suffix: WiggleButton(
-              onTap: () {},
+              onTap: () {
+                Get.to(() => SearchPage());
+              },
               child: Icon(TablerIcons.search, color: theme.iconMain),
             ),
           ),
@@ -103,6 +106,7 @@ class _HomePageState extends State<HomePage> {
                               ) {
                                 return MovieCard(
                                   movie: controller.allList[index],
+                                  heroKey: 'fromHome',
                                 );
                               }, childCount: controller.allList.length),
                               gridDelegate:
