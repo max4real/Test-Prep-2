@@ -78,6 +78,7 @@ class MovieSearchController extends GetxController {
                 .map((e) => MovieCardModel.fromMap(e))
                 .toList();
 
+        // save to cache with search value as key
         await cacheBox.put(
           value,
           CachedResult(

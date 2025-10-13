@@ -32,8 +32,8 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
 
   @override
   void initState() {
-    controller = Get.put(MovieDetailController(widget.movie));
     super.initState();
+    controller = Get.put(MovieDetailController(widget.movie));
   }
 
   @override
