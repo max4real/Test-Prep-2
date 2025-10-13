@@ -1,10 +1,7 @@
 class ApiEndPoint {
-  static const String register = "auth/register";
-  static const String verifyEmail = "auth/verify-email";
-  static const String resendOTP = "auth/resend-otp";
-  static const String login = "auth/login";
+  static const String imageBaseUrl = 'https://image.tmdb.org/t/p/w500';
 
-  static const String me = "auth/me";
-  static const String rice = "rice";
-  static const String category = "rice/category";
+  static const String nowShowing = "movie/now_playing";
+  static const String upcoming = "movie/upcoming";
+  static const String popular = "movie/popular";
 }

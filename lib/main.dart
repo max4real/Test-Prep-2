@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:test_prep_2/modules/gateway/v/v_gateway.dart';
 import 'package:test_prep_2/utli/const/theme/app_theme.dart';
 import 'package:test_prep_2/utli/controller/data_controller.dart';
 import 'package:test_prep_2/utli/services/sp_service.dart';
@@ -25,17 +26,8 @@ class MainApp extends StatelessWidget {
       themeMode: dataController.appThemeMode,
       theme: CustomTheme.lightTheme,
       darkTheme: CustomTheme.darkTheme,
-      home: HomePage(),
+      home: GatewayPage(),
       debugShowCheckedModeBanner: false,
     );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  const HomePage({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return const Placeholder();
   }
 }

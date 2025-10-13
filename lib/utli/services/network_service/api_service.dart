@@ -2,21 +2,38 @@
 
 import 'dart:io';
 import 'package:dio/dio.dart';
+import 'package:get/get.dart' as getx;
+import 'package:test_prep_2/utli/controller/data_controller.dart';
 
 class ApiService {
   final Dio _dio;
+
   ApiService()
     : _dio = Dio(
         BaseOptions(
-          baseUrl: "https://api.nest.shwepyaesone.com/api/v1/",
+          baseUrl: "https://api.themoviedb.org/3/",
           connectTimeout: const Duration(seconds: 30),
           receiveTimeout: const Duration(seconds: 30),
           headers: {"Content-Type": "application/json"},
-          validateStatus: (status) {
-            return true;
-          },
+          validateStatus: (status) => true,
         ),
-      );
+      ) {
+    _dio.interceptors.add(
+      InterceptorsWrapper(
+        onRequest: (options, handler) {
+          options.headers["Authorization"] =
+              "Bearer ${getx.Get.find<DataController>().accessToken}";
+          return handler.next(options);
+        },
+        onError: (error, handler) {
+          if (error.response?.statusCode == 401) {
+            print("Unauthorized: Invalid or expired token");
+          }
+          return handler.next(error);
+        },
+      ),
+    );
+  }
 
   void validateResponse({
     required Response? response,
@@ -25,25 +42,33 @@ class ApiService {
   }) {
     if (response != null) {
       try {
-        // Convert to Map<String, dynamic> safely
-        final Map<String, dynamic> data = (response.data as Map).map(
-          (key, value) => MapEntry(key.toString(), value),
-        );
+        final statusCode = response.statusCode ?? 0;
 
-        final metadata = (data['_metadata'] ?? {}) as Map;
-        final success = metadata['success'] == true;
-        final statusCode = metadata['statusCode'] ?? response.statusCode;
+        if (statusCode >= 200 && statusCode < 300) {
+          if (response.data is Map<String, dynamic>) {
+            final data = response.data as Map<String, dynamic>;
 
-        if (success && (statusCode == 200 || statusCode == 201)) {
-          onSuccess(data);
-        } else {
-          onFailure({
-            ...data,
-            '_metadata': {
-              ...metadata,
+            if (data.containsKey("results")) {
+              onSuccess(data);
+            } else {
+              onSuccess(data);
+            }
+          } else {
+            onFailure({
+              'error': 'Unexpected response format',
               'statusCode': statusCode,
-              'success': false,
-            },
+            });
+          }
+        } else {
+          final errorBody =
+              (response.data is Map)
+                  ? Map<String, dynamic>.from(response.data as Map)
+                  : {};
+
+          onFailure({
+            'error': errorBody['status_message'] ?? 'Request failed',
+            'statusCode': statusCode,
+            'tmdb_code': errorBody['status_code'],
           });
         }
       } catch (e) {
@@ -61,18 +86,13 @@ class ApiService {
   Future<Response> get(
     String endpoint, {
     Map<String, dynamic>? queryParams,
-    String? token,
     Options? options,
   }) async {
-    // try {
     return await _dio.get(
       endpoint,
       queryParameters: queryParams,
-      options: _withAuth(options, token),
+      options: options,
     );
-    // } on DioException catch (e) {
-    //   throw Exception(_handleError(e));
-    // }
   }
 
   // ------------------ POST ------------------
@@ -80,37 +100,23 @@ class ApiService {
     String endpoint, {
     dynamic data,
     Map<String, dynamic>? queryParams,
-    String? token,
     Options? options,
   }) async {
-    // try {
     return await _dio.post(
       endpoint,
       data: data,
       queryParameters: queryParams,
-      options: _withAuth(options, token),
+      options: options,
     );
-    // } on DioException catch (e) {
-    //   throw Exception(_handleError(e));
-    // }
   }
 
   // ------------------ PATCH ------------------
   Future<Response> patch(
     String endpoint, {
     dynamic data,
-    String? token,
     Options? options,
   }) async {
-    // try {
-    return await _dio.patch(
-      endpoint,
-      data: data,
-      options: _withAuth(options, token),
-    );
-    // } on DioException catch (e) {
-    //   throw Exception(_handleError(e));
-    // }
+    return await _dio.patch(endpoint, data: data, options: options);
   }
 
   // ------------------ DELETE ------------------
@@ -118,19 +124,14 @@ class ApiService {
     String endpoint, {
     dynamic data,
     Map<String, dynamic>? queryParams,
-    String? token,
     Options? options,
   }) async {
-    // try {
     return await _dio.delete(
       endpoint,
       data: data,
       queryParameters: queryParams,
-      options: _withAuth(options, token),
+      options: options,
     );
-    // } on DioException catch (e) {
-    //   throw Exception(_handleError(e));
-    // }
   }
 
   // ------------------ MULTIPART POST ------------------
@@ -139,10 +140,8 @@ class ApiService {
     required Map<String, dynamic> fields,
     required File file,
     String fileField = "file",
-    String? token,
     Options? options,
   }) async {
-    // try {
     final formData = FormData.fromMap({
       ...fields,
       fileField: await MultipartFile.fromFile(
@@ -154,38 +153,8 @@ class ApiService {
     return await _dio.post(
       endpoint,
       data: formData,
-      options: _withAuth(
-        options ?? Options(headers: {"Content-Type": "multipart/form-data"}),
-        token,
-      ),
+      options:
+          options ?? Options(headers: {"Content-Type": "multipart/form-data"}),
     );
-    // } on DioException catch (e) {
-    //   throw Exception(_handleError(e));
-    // }
   }
-
-  // ------------------ Add Authorization header if token exists ------------------
-  Options _withAuth(Options? options, String? token) {
-    final newHeaders = Map<String, dynamic>.from(options?.headers ?? {});
-    if (token != null && token.isNotEmpty) {
-      newHeaders["Authorization"] = "Bearer $token";
-    }
-    return options?.copyWith(headers: newHeaders) ??
-        Options(headers: newHeaders);
-  }
-
-  // ------------------ Error Handler ------------------
-  // String _handleError(DioException error) {
-  //   if (error.type == DioExceptionType.connectionTimeout) {
-  //     return "Connection timeout";
-  //   } else if (error.type == DioExceptionType.receiveTimeout) {
-  //     return "Receive timeout";
-  //   } else if (error.type == DioExceptionType.badResponse) {
-  //     return "Server error: ${error.response?.statusCode}";
-  //   } else if (error.type == DioExceptionType.cancel) {
-  //     return "Request cancelled";
-  //   } else {
-  //     return "Unexpected error: ${error.message}";
-  //   }
-  // }
 }
