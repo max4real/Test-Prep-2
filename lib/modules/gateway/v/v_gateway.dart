@@ -25,7 +25,7 @@ class _GatewayPageState extends State<GatewayPage>
     _controller = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 800),
-    )..repeat(reverse: true); // fade in and out repeatedly
+    )..repeat(reverse: true);
 
     _fadeAnimation = Tween<double>(
       begin: 0.4,
