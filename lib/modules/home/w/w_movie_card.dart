@@ -17,11 +17,6 @@ class MovieCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final posterUrl =
-        movie.posterPath.isNotEmpty
-            ? '${ApiEndPoint.imageBaseUrl("300")}${movie.posterPath}'
-            : null;
-
     return GestureDetector(
       onTap: () {
         Get.to(() => MovieDetailPage(movie: movie, heroKey: heroKey));
@@ -32,37 +27,28 @@ class MovieCard extends StatelessWidget {
           fit: StackFit.expand,
           children: [
             // Poster
-            if (posterUrl != null)
-              Hero(
-                tag: "${heroKey}_${movie.id}",
-                child: CachedNetworkImage(
-                  imageUrl: posterUrl,
-                  fit: BoxFit.cover,
-                  placeholder:
-                      (context, url) => Container(
-                        color: Colors.grey[900],
-                        child: const Center(child: CustomLoading()),
+            Hero(
+              tag: "${heroKey}_${movie.id}",
+              child: CachedNetworkImage(
+                imageUrl:
+                    '${ApiEndPoint.imageBaseUrl("300")}${movie.posterPath}',
+                fit: BoxFit.cover,
+                placeholder:
+                    (context, url) => Container(
+                      color: Colors.grey[900],
+                      child: const Center(child: CustomLoading()),
+                    ),
+                errorWidget:
+                    (context, url, error) => Container(
+                      color: Colors.grey[900],
+                      child: const Icon(
+                        Icons.broken_image,
+                        color: Colors.grey,
+                        size: 40,
                       ),
-                  errorWidget:
-                      (context, url, error) => Container(
-                        color: Colors.grey[900],
-                        child: const Icon(
-                          Icons.broken_image,
-                          color: Colors.grey,
-                          size: 40,
-                        ),
-                      ),
-                ),
-              )
-            else
-              Container(
-                color: Colors.grey[900],
-                child: const Icon(
-                  Icons.broken_image,
-                  color: Colors.grey,
-                  size: 40,
-                ),
+                    ),
               ),
+            ),
 
             // overlay
             Container(

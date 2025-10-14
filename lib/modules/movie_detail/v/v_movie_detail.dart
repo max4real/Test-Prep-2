@@ -46,10 +46,6 @@ class _MovieDetailPageState extends State<MovieDetailPage>
 
   @override
   Widget build(BuildContext context) {
-    final posterUrl =
-        widget.movie.posterPath.isNotEmpty
-            ? '${ApiEndPoint.imageBaseUrl("400")}${widget.movie.posterPath}'
-            : null;
     final theme = Theme.of(context).extension<ThemeExtras>()!;
 
     return Scaffold(
@@ -65,31 +61,31 @@ class _MovieDetailPageState extends State<MovieDetailPage>
                   // Poster
                   Stack(
                     children: [
-                      if (posterUrl != null)
-                        Hero(
-                          tag: "${widget.heroKey}_${widget.movie.id}",
-                          child: CachedNetworkImage(
-                            imageUrl: posterUrl,
-                            width: double.infinity,
-                            fit: BoxFit.cover,
-                            placeholder:
-                                (context, url) => Container(
-                                  color: Colors.grey[900],
-                                  height: 400,
-                                  child: const Center(child: CustomLoading()),
+                      Hero(
+                        tag: "${widget.heroKey}_${widget.movie.id}",
+                        child: CachedNetworkImage(
+                          imageUrl:
+                              '${ApiEndPoint.imageBaseUrl("400")}${widget.movie.posterPath}',
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                          placeholder:
+                              (context, url) => Container(
+                                color: Colors.grey[900],
+                                height: 400,
+                                child: const Center(child: CustomLoading()),
+                              ),
+                          errorWidget:
+                              (context, url, error) => Container(
+                                height: 400,
+                                color: Colors.grey[900],
+                                child: const Icon(
+                                  Icons.broken_image,
+                                  color: Colors.grey,
+                                  size: 40,
                                 ),
-                            errorWidget:
-                                (context, url, error) => Container(
-                                  height: 400,
-                                  color: Colors.grey[900],
-                                  child: const Icon(
-                                    Icons.broken_image,
-                                    color: Colors.grey,
-                                    size: 40,
-                                  ),
-                                ),
-                          ),
+                              ),
                         ),
+                      ),
 
                       // Overlay
                       Positioned.fill(
