@@ -49,7 +49,8 @@ class _HomePageState extends State<HomePage> {
         children: [
           10.heightBox,
           GestureDetector(
-            onTap: () {
+            onDoubleTap: () {
+              // for testing purposes only
               Get.to(() => LoadingPreview());
             },
             child: GlobalHeader(

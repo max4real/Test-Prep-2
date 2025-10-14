@@ -31,7 +31,10 @@ class MovieDetailController extends GetxController {
         xLoading.value = false;
       },
       onFailure: (p0) {
-        DialogService().showMessageDialog("Something went wrong");
+        DialogService().showSnack(
+          title: 'Sorry',
+          message: "Something went wrong",
+        );
         xLoading.value = false;
       },
     );

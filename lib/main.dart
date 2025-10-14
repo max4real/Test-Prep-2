@@ -6,11 +6,9 @@ import 'package:test_prep_2/modules/search/m/hive/h_cache_result.dart';
 import 'package:test_prep_2/utli/const/hive_box_name.dart';
 import 'package:test_prep_2/utli/const/theme/app_theme.dart';
 import 'package:test_prep_2/utli/controller/data_controller.dart';
-import 'package:test_prep_2/utli/services/sp_service.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await SpService().init();
   await Hive.initFlutter();
   Hive.registerAdapter(CachedResultAdapter());
   await Hive.openBox<CachedResult>(HiveBoxName.searchCache);

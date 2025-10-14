@@ -27,20 +27,28 @@ class MovieDetailPage extends StatefulWidget {
   State<MovieDetailPage> createState() => _MovieDetailPageState();
 }
 
-class _MovieDetailPageState extends State<MovieDetailPage> {
+class _MovieDetailPageState extends State<MovieDetailPage>
+    with SingleTickerProviderStateMixin {
   late MovieDetailController controller;
+  double _overlayOpacity = 0.0;
 
   @override
   void initState() {
     super.initState();
     controller = Get.put(MovieDetailController(widget.movie));
+
+    Future.delayed(Duration(milliseconds: 200), () {
+      setState(() {
+        _overlayOpacity = 1.0;
+      });
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     final posterUrl =
         widget.movie.posterPath.isNotEmpty
-            ? '${ApiEndPoint.imageBaseUrl("300")}${widget.movie.posterPath}'
+            ? '${ApiEndPoint.imageBaseUrl("400")}${widget.movie.posterPath}'
             : null;
     final theme = Theme.of(context).extension<ThemeExtras>()!;
 
@@ -85,16 +93,21 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
 
                       // Overlay
                       Positioned.fill(
-                        child: Container(
-                          decoration: BoxDecoration(
-                            gradient: LinearGradient(
-                              colors: [
-                                Colors.transparent,
-                                Colors.black.withOpacity(0.6),
-                                Colors.black,
-                              ],
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
+                        child: AnimatedOpacity(
+                          opacity: _overlayOpacity,
+                          duration: Duration(milliseconds: 800),
+                          curve: Curves.easeInOut,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              gradient: LinearGradient(
+                                colors: [
+                                  Colors.transparent,
+                                  Colors.black.withAlpha(0.3.toAlpha),
+                                  Colors.black,
+                                ],
+                                begin: Alignment.topCenter,
+                                end: Alignment.bottomCenter,
+                              ),
                             ),
                           ),
                         ),
@@ -118,12 +131,26 @@ class _MovieDetailPageState extends State<MovieDetailPage> {
                               ),
                             ),
                             8.heightBox,
-                            Text(
-                              'Release: ${widget.movie.releaseDate != null ? DateFormat('MMMM d, y').format(widget.movie.releaseDate!.toLocal()) : 'Unknown'}',
-                              style: const TextStyle(
-                                color: Colors.white70,
-                                fontSize: 14,
-                              ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Text(
+                                  'Release: ${widget.movie.releaseDate != null ? DateFormat('MMMM d, y').format(widget.movie.releaseDate!.toLocal()) : 'Unknown'}',
+                                  style: const TextStyle(
+                                    color: Colors.white70,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                                4.widthBox,
+                                Text(
+                                  widget.movie.adult ? '| R' : ' | PG-13',
+                                  style: TextStyle(
+                                    color: Colors.white70,
+                                    fontSize: 12,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                                ),
+                              ],
                             ),
                           ],
                         ),

@@ -110,13 +110,22 @@ class MovieCard extends StatelessWidget {
                     Row(
                       children: [
                         const Icon(
-                          TablerIcons.calendar,
+                          TablerIcons.calendar_filled,
                           color: Colors.white,
                           size: 14,
                         ),
                         4.widthBox,
                         Text(
                           movie.releaseDate!.year.toString(),
+                          style: TextStyle(
+                            color: Colors.white70,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                        4.widthBox,
+                        Text(
+                          movie.adult ? '| R' : '| PG-13',
                           style: TextStyle(
                             color: Colors.white70,
                             fontSize: 12,

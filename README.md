@@ -6,6 +6,10 @@ The app integrates **Dio** for HTTP networking, using a custom **Interceptor** t
 ---
 
 ## Setup Instructions
+
+- Flutter SDK - 3.29.0 
+- Dart SDK - 3.7.0 
+
 1. Clone the repository
 ```bash
 git clone https://github.com/max4real/Test-Prep-2.git
@@ -83,6 +87,7 @@ Note: The full animation is divided into two phases:
     - dropPhase is usually 0.5 -> first half of the animation.
  2. Arc fill: progress goes from dropPhase -> 1.0
     - second half of the animation.
+FYI: Double tap on "Now Showing" to preview the InkDrop animation
 
 ---
 

@@ -8,6 +8,7 @@ import 'package:test_prep_2/modules/home/w/w_movie_card_shimmer.dart';
 import 'package:test_prep_2/modules/search/c/c_search.dart';
 import 'package:test_prep_2/modules/search/w/w_search_hearder.dart';
 import 'package:test_prep_2/utli/const/theme/m_theme_data.dart';
+import 'package:test_prep_2/utli/controller/data_controller.dart';
 
 class SearchPage extends StatefulWidget {
   const SearchPage({super.key});
@@ -21,7 +22,11 @@ class _SearchPageState extends State<SearchPage> {
 
   @override
   void initState() {
-    controller = Get.put(MovieSearchController());
+    controller = Get.put(
+      MovieSearchController(
+        cacheDuration: Get.find<DataController>().cacheDuration,
+      ),
+    );
     super.initState();
   }
 

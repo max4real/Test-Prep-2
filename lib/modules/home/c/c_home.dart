@@ -51,7 +51,10 @@ class HomeController extends GetxController {
         allList = isAppend ? [...allList, ...newList] : newList;
       },
       onFailure: (p0) {
-        DialogService().showMessageDialog("Something went wrong");
+        DialogService().showSnack(
+          title: 'Sorry',
+          message: "Something went wrong",
+        );
       },
     );
     if (isAppend) {
