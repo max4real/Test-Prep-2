@@ -3,8 +3,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:test_prep_2/core/extensions/double_extension.dart';
 import 'package:test_prep_2/core/extensions/int_extension.dart';
-import 'package:test_prep_2/core/widget/w_custom_loading.dart';
 import 'package:test_prep_2/modules/home/m/m_movie_card.dart';
+import 'package:test_prep_2/modules/home/w/w_movie_card_shimmer.dart';
 import 'package:test_prep_2/modules/home/w/w_rating.dart';
 import 'package:test_prep_2/modules/movie_detail/v/v_movie_detail.dart';
 import 'package:test_prep_2/utli/services/network_service/api_end_points.dart';
@@ -33,11 +33,7 @@ class MovieCard extends StatelessWidget {
                 imageUrl:
                     '${ApiEndPoint.imageBaseUrl("200")}${movie.posterPath}',
                 fit: BoxFit.cover,
-                placeholder:
-                    (context, url) => Container(
-                      color: Colors.grey[900],
-                      child: const Center(child: CustomLoading()),
-                    ),
+                placeholder: (context, url) => MovieCardShimmer(),
                 errorWidget:
                     (context, url, error) => Container(
                       color: Colors.grey[900],

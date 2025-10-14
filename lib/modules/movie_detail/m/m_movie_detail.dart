@@ -1,16 +1,12 @@
 class MovieDetailModel {
   final int id;
   final String title;
-  final String originalTitle;
   final String overview;
-  final String originalLanguage;
   final bool adult;
   final bool video;
   final double popularity;
   final double voteAverage;
   final int voteCount;
-  final String? imdbId;
-  final String? homepage;
   final String? posterPath;
   final String? backdropPath;
   final int? budget;
@@ -21,22 +17,16 @@ class MovieDetailModel {
   final DateTime? releaseDate;
   final List<Genre> genres;
   final List<ProductionCompany> productionCompanies;
-  final List<ProductionCountry> productionCountries;
-  final List<SpokenLanguage> spokenLanguages;
 
   MovieDetailModel({
     required this.id,
     required this.title,
-    required this.originalTitle,
     required this.overview,
-    required this.originalLanguage,
     required this.adult,
     required this.video,
     required this.popularity,
     required this.voteAverage,
     required this.voteCount,
-    this.imdbId,
-    this.homepage,
     this.posterPath,
     this.backdropPath,
     this.budget,
@@ -47,17 +37,13 @@ class MovieDetailModel {
     this.releaseDate,
     this.genres = const [],
     this.productionCompanies = const [],
-    this.productionCountries = const [],
-    this.spokenLanguages = const [],
   });
 
   factory MovieDetailModel.fromMap(Map<String, dynamic> map) {
     return MovieDetailModel(
       id: map['id'] ?? 0,
       title: map['title'] ?? '',
-      originalTitle: map['original_title'] ?? '',
       overview: map['overview'] ?? '',
-      originalLanguage: map['original_language'] ?? '',
       adult: map['adult'] ?? false,
       video: map['video'] ?? false,
       popularity:
@@ -69,8 +55,6 @@ class MovieDetailModel {
               ? (map['vote_average'] as int).toDouble()
               : (map['vote_average'] ?? 0.0),
       voteCount: map['vote_count'] ?? 0,
-      imdbId: map['imdb_id'],
-      homepage: map['homepage'],
       posterPath: map['poster_path'],
       backdropPath: map['backdrop_path'],
       budget: map['budget'],
@@ -84,16 +68,6 @@ class MovieDetailModel {
       productionCompanies:
           (map['production_companies'] as List?)
               ?.map((e) => ProductionCompany.fromMap(e))
-              .toList() ??
-          [],
-      productionCountries:
-          (map['production_countries'] as List?)
-              ?.map((e) => ProductionCountry.fromMap(e))
-              .toList() ??
-          [],
-      spokenLanguages:
-          (map['spoken_languages'] as List?)
-              ?.map((e) => SpokenLanguage.fromMap(e))
               .toList() ??
           [],
     );
@@ -141,40 +115,6 @@ class ProductionCompany {
       name: map['name'] ?? '',
       logoPath: map['logo_path'],
       originCountry: map['origin_country'],
-    );
-  }
-}
-
-class ProductionCountry {
-  final String iso;
-  final String name;
-
-  ProductionCountry({required this.iso, required this.name});
-
-  factory ProductionCountry.fromMap(Map<String, dynamic> map) {
-    return ProductionCountry(
-      iso: map['iso_3166_1'] ?? '',
-      name: map['name'] ?? '',
-    );
-  }
-}
-
-class SpokenLanguage {
-  final String iso;
-  final String englishName;
-  final String name;
-
-  SpokenLanguage({
-    required this.iso,
-    required this.englishName,
-    required this.name,
-  });
-
-  factory SpokenLanguage.fromMap(Map<String, dynamic> map) {
-    return SpokenLanguage(
-      iso: map['iso_639_1'] ?? '',
-      englishName: map['english_name'] ?? '',
-      name: map['name'] ?? '',
     );
   }
 }

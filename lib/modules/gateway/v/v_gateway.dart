@@ -5,6 +5,7 @@ import 'package:test_prep_2/core/extensions/int_extension.dart';
 import 'package:test_prep_2/core/widget/scaffold_container.dart';
 import 'package:test_prep_2/modules/gateway/c/c_gateway_controller.dart';
 import 'package:test_prep_2/utli/const/theme/app_color.dart';
+import 'package:test_prep_2/utli/const/theme/m_theme_data.dart';
 
 class GatewayPage extends StatefulWidget {
   const GatewayPage({super.key});
@@ -41,8 +42,10 @@ class _GatewayPageState extends State<GatewayPage>
 
   @override
   Widget build(BuildContext context) {
+    final theme = Theme.of(context).extension<ThemeExtras>()!;
+
     return ScaffoldContainer(
-      bgColor: Colors.white,
+      bgColor: theme.scaffoldBg,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -55,7 +58,7 @@ class _GatewayPageState extends State<GatewayPage>
                   decoration: BoxDecoration(
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withAlpha(0.2.toAlpha),
+                        color: theme.scaffoldBg.withAlpha(0.2.toAlpha),
                         blurRadius: 20,
                         offset: const Offset(0, 10),
                       ),
@@ -64,7 +67,7 @@ class _GatewayPageState extends State<GatewayPage>
                   child: Text(
                     'MovieDB',
                     style: TextStyle(
-                      color: AppColor.mainColor,
+                      color: AppColor.secondColor,
                       fontSize: 18,
                       fontWeight: FontWeight.w900,
                       fontFamily: 'Times New Roman',
@@ -77,7 +80,7 @@ class _GatewayPageState extends State<GatewayPage>
           Text(
             '© 2025 MovieDB. All rights reserved.',
             style: TextStyle(
-              color: AppColor.textSecond,
+              color: theme.textSecond,
               fontSize: 14,
               fontWeight: FontWeight.w600,
             ),

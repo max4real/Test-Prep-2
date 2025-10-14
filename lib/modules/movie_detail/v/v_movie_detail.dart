@@ -30,18 +30,11 @@ class MovieDetailPage extends StatefulWidget {
 class _MovieDetailPageState extends State<MovieDetailPage>
     with SingleTickerProviderStateMixin {
   late MovieDetailController controller;
-  double _overlayOpacity = 0.0;
 
   @override
   void initState() {
     super.initState();
     controller = Get.put(MovieDetailController(widget.movie));
-
-    Future.delayed(Duration(milliseconds: 200), () {
-      setState(() {
-        _overlayOpacity = 1.0;
-      });
-    });
   }
 
   @override
@@ -70,14 +63,14 @@ class _MovieDetailPageState extends State<MovieDetailPage>
                           fit: BoxFit.cover,
                           placeholder:
                               (context, url) => Container(
-                                color: Colors.grey[900],
+                                color: theme.overlayBg,
                                 height: 400,
                                 child: const Center(child: CustomLoading()),
                               ),
                           errorWidget:
                               (context, url, error) => Container(
                                 height: 400,
-                                color: Colors.grey[900],
+                                color: theme.overlayBg,
                                 child: const Icon(
                                   Icons.broken_image,
                                   color: Colors.grey,
@@ -89,24 +82,26 @@ class _MovieDetailPageState extends State<MovieDetailPage>
 
                       // Overlay
                       Positioned.fill(
-                        child: AnimatedOpacity(
-                          opacity: _overlayOpacity,
-                          duration: Duration(milliseconds: 800),
-                          curve: Curves.easeInOut,
-                          child: Container(
-                            decoration: BoxDecoration(
-                              gradient: LinearGradient(
-                                colors: [
-                                  Colors.transparent,
-                                  Colors.black.withAlpha(0.3.toAlpha),
-                                  Colors.black,
-                                ],
-                                begin: Alignment.topCenter,
-                                end: Alignment.bottomCenter,
+                        child: Obx(() {
+                          return AnimatedOpacity(
+                            opacity: controller.overlayOpacity.value,
+                            duration: Duration(milliseconds: 800),
+                            curve: Curves.easeInOut,
+                            child: Container(
+                              decoration: BoxDecoration(
+                                gradient: LinearGradient(
+                                  colors: [
+                                    Colors.transparent,
+                                    Colors.black.withAlpha(0.3.toAlpha),
+                                    Colors.black,
+                                  ],
+                                  begin: Alignment.topCenter,
+                                  end: Alignment.bottomCenter,
+                                ),
                               ),
                             ),
-                          ),
-                        ),
+                          );
+                        }),
                       ),
 
                       // Title over Poster
@@ -166,9 +161,11 @@ class _MovieDetailPageState extends State<MovieDetailPage>
 
                       final detail = controller.detailModel.value;
                       if (detail == null) {
-                        return Text(
-                          "Failed to load details",
-                          style: TextStyle(color: theme.textMain),
+                        return Center(
+                          child: Text(
+                            "Failed to load details",
+                            style: TextStyle(color: theme.textSecond),
+                          ),
                         );
                       }
 
