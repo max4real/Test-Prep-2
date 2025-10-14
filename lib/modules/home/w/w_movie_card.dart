@@ -31,7 +31,7 @@ class MovieCard extends StatelessWidget {
               tag: "${heroKey}_${movie.id}",
               child: CachedNetworkImage(
                 imageUrl:
-                    '${ApiEndPoint.imageBaseUrl("300")}${movie.posterPath}',
+                    '${ApiEndPoint.imageBaseUrl("200")}${movie.posterPath}',
                 fit: BoxFit.cover,
                 placeholder:
                     (context, url) => Container(

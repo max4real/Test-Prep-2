@@ -65,7 +65,7 @@ class _MovieDetailPageState extends State<MovieDetailPage>
                         tag: "${widget.heroKey}_${widget.movie.id}",
                         child: CachedNetworkImage(
                           imageUrl:
-                              '${ApiEndPoint.imageBaseUrl("400")}${widget.movie.posterPath}',
+                              '${ApiEndPoint.imageBaseUrl("500")}${widget.movie.posterPath}',
                           width: double.infinity,
                           fit: BoxFit.cover,
                           placeholder:
