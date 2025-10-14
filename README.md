@@ -88,10 +88,14 @@ Note: The full animation is divided into two phases:
 
 # Build & Release
 To build the app for release:
-1. Android
+- Android
+ ```bash
  - flutter build apk --release
-2. iOS
- - flutter build ios --release
+```
+- iOS
+```bash
+flutter build ios --release
+```
 
 ---
 
