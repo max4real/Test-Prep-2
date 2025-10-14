@@ -16,10 +16,6 @@ cd Test-Prep-2
 flutter pub get
 ```
 
-3. Configure environment variables
-Navigate to lib/utli/controller/data_controller.dart 
-Set your api access token String accessToken = 'yourToken'
-
 4. Run the app
 ```bash
 flutter run
@@ -27,6 +23,12 @@ flutter run
 
 ## API Key / Token Setup
 This project uses Dio Interceptors to attach tokens to every API request.
+1. Configure environment variables
+ - Navigate to lib/utli/controller/data_controller.dart 
+ - Set your api access token 
+ ```bash
+  String accessToken = 'yourToken';
+ ```   
 
 ## Architecture & Design Choices
 ### MVC + GetX
@@ -51,7 +53,7 @@ Each feature (e.g., Home, Popular, Now Showing and Search) is encapsulated in it
  3. Optional Model 
 This promotes scalability and maintainability.
 
----------------------------------------------------------------------------------------------------------------------------------------------------
+---
 
 ## InkDropLoading Widget
 A custom Flutter loading animation that mimics the "InkDrop" effect using CustomPainter and AnimationController.
@@ -82,16 +84,16 @@ Note: The full animation is divided into two phases:
  2. Arc fill: progress goes from dropPhase -> 1.0
     - second half of the animation.
 
------------------------------------------------------------------------------------------------------------------------------------------------------
+---
 
 # Build & Release
 To build the app for release:
-- Android
+1. Android
  - flutter build apk --release
-- iOS
+2. iOS
  - flutter build ios --release
 
------------------------------------------------------------------------------------------------------------------------------------------------------
+---
 
 # Flutter Testing Guide
 
