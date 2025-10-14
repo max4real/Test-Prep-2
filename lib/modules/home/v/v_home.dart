@@ -5,6 +5,7 @@ import 'package:test_prep_2/core/widget/scaffold_container.dart';
 import 'package:test_prep_2/core/widget/w_custom_loading.dart';
 import 'package:test_prep_2/core/widget/w_global_header.dart';
 import 'package:test_prep_2/core/widget/w_wiggle_button.dart';
+import 'package:test_prep_2/modules/custom_loading_widget/loading_preview.dart';
 import 'package:test_prep_2/modules/home/c/c_home.dart';
 import 'package:test_prep_2/modules/home/w/w_movie_card.dart';
 import 'package:test_prep_2/modules/home/w/w_movie_card_shimmer.dart';
@@ -47,14 +48,19 @@ class _HomePageState extends State<HomePage> {
       child: Column(
         children: [
           10.heightBox,
-          GlobalHeader(
-            includePlus: false,
-            title: 'Now Showing',
-            suffix: WiggleButton(
-              onTap: () {
-                Get.to(() => SearchPage());
-              },
-              child: Icon(TablerIcons.search, color: theme.iconMain),
+          GestureDetector(
+            onTap: () {
+              Get.to(() => LoadingPreview());
+            },
+            child: GlobalHeader(
+              includePlus: false,
+              title: 'Now Showing',
+              suffix: WiggleButton(
+                onTap: () {
+                  Get.to(() => SearchPage());
+                },
+                child: Icon(TablerIcons.search, color: theme.iconMain),
+              ),
             ),
           ),
           Expanded(

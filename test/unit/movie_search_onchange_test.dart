@@ -1,7 +1,7 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:get/get.dart';
 import 'package:test_prep_2/modules/search/c/c_search.dart';
-import '../helpers/test_data.dart';
+import 'helpers/test_data.dart';
 
 
 // this is a Unit test for Search Onchange
