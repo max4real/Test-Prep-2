@@ -26,7 +26,7 @@ class _InkDropLoadingState extends State<InkDropLoading>
     super.initState();
     _controller = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 1500),
+      duration: const Duration(seconds: 1),
     );
 
     progress = CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
