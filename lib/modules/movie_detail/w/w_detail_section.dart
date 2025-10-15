@@ -99,7 +99,7 @@ class DetailSection extends StatelessWidget {
           if (controller.castList.isEmpty) {
             return Center(
               child: Text(
-                "Failed to load cast",
+                "No cast data found.",
                 style: TextStyle(color: theme.textSecond),
               ),
             );

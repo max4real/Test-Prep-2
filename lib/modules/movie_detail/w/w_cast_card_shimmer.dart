@@ -14,11 +14,12 @@ class CastCardShimmer extends StatelessWidget {
       baseColor: theme.shimmerBaseColor,
       highlightColor: theme.shimmerHighlightColor,
       child: Column(
+        mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           // Image placeholder
           Container(
-            height: 140,
+            height: 130,
             width: 100,
             decoration: BoxDecoration(
               color: theme.overlayBg,

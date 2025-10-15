@@ -40,7 +40,8 @@ class _MovieDetailPageState extends State<MovieDetailPage>
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context).extension<ThemeExtras>()!;
-
+    final poster =
+        '${ApiEndPoint.imageBaseUrl("400")}${widget.movie.posterPath}';
     return Scaffold(
       backgroundColor: theme.scaffoldBg,
       body: Stack(
@@ -57,8 +58,8 @@ class _MovieDetailPageState extends State<MovieDetailPage>
                       Hero(
                         tag: "${widget.heroKey}_${widget.movie.id}",
                         child: CachedNetworkImage(
-                          imageUrl:
-                              '${ApiEndPoint.imageBaseUrl("500")}${widget.movie.posterPath}',
+                          imageUrl: poster,
+                          // cacheManager: controller.customCacheManager,
                           width: double.infinity,
                           fit: BoxFit.cover,
                           placeholder:
@@ -67,16 +68,17 @@ class _MovieDetailPageState extends State<MovieDetailPage>
                                 height: 400,
                                 child: const Center(child: CustomLoading()),
                               ),
-                          errorWidget:
-                              (context, url, error) => Container(
-                                height: 400,
-                                color: theme.overlayBg,
-                                child: const Icon(
-                                  Icons.broken_image,
-                                  color: Colors.grey,
-                                  size: 40,
-                                ),
+                          errorWidget: (context, url, error) {
+                            return Container(
+                              height: 400,
+                              color: theme.overlayBg,
+                              child: const Icon(
+                                Icons.broken_image,
+                                color: Colors.grey,
+                                size: 40,
                               ),
+                            );
+                          },
                         ),
                       ),
 

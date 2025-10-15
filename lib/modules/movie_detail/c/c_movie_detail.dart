@@ -18,11 +18,23 @@ class MovieDetailController extends GetxController {
 
   @override
   void onInit() {
+    // make them run concurrently
     getMovieDetail();
     getMovieCast();
     startOverlay();
     super.onInit();
   }
+
+  // final customCacheManager = CacheManager(
+  //   Config(
+  //     ImageCacheKeys.movieDetails,
+  //     stalePeriod: const Duration(days: 7),
+  //     maxNrOfCacheObjects: 100,
+  //     fileService: HttpFileService(
+  //       httpClient: TimeoutHttpClient(timeout: const Duration(seconds: 10)),
+  //     ),
+  //   ),
+  // );
 
   void startOverlay() {
     Future.delayed(Duration(milliseconds: 200), () {

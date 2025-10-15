@@ -1,8 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:test_prep_2/core/extensions/int_extension.dart';
 import 'package:test_prep_2/modules/movie_detail/m/m_cast_model.dart';
-import 'package:test_prep_2/modules/movie_detail/w/w_cast_card_shimmer.dart';
 import 'package:test_prep_2/utli/const/theme/m_theme_data.dart';
 import 'package:test_prep_2/utli/services/network_service/api_end_points.dart';
 
@@ -25,9 +25,22 @@ class CastCard extends StatelessWidget {
               aspectRatio: 3 / 4,
               child: CachedNetworkImage(
                 imageUrl:
-                    '${ApiEndPoint.imageBaseUrl("300")}${castModel.profilePath}',
+                    '${ApiEndPoint.imageBaseUrl("200")}${castModel.profilePath}',
                 fit: BoxFit.cover,
-                placeholder: (context, url) => const CastCardShimmer(),
+                placeholder: (context, url) {
+                  return Shimmer.fromColors(
+                    baseColor: theme.shimmerBaseColor,
+                    highlightColor: theme.shimmerHighlightColor,
+                    child: Container(
+                      height: 130,
+                      width: 100,
+                      decoration: BoxDecoration(
+                        color: theme.overlayBg,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                  );
+                },
                 errorWidget:
                     (context, url, error) => Container(
                       decoration: BoxDecoration(
