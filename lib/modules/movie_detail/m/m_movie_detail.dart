@@ -43,7 +43,7 @@ class MovieDetailModel {
     return MovieDetailModel(
       id: map['id'] ?? 0,
       title: map['title'] ?? '',
-      overview: map['overview'] ?? '',
+      overview: map['overview'] ?? '-',
       adult: map['adult'] ?? false,
       video: map['video'] ?? false,
       popularity:

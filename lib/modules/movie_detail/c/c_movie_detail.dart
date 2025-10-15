@@ -78,7 +78,7 @@ class MovieDetailController extends GetxController {
           newList.add(cast);
         }
 
-        castList.addAll(newList);
+        castList.addAll(newList.take(10));
         xcastLoading.value = false;
       },
       onFailure: (p0) {

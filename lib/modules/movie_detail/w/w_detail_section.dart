@@ -38,40 +38,42 @@ class DetailSection extends StatelessWidget {
           ),
           Divider(color: theme.overlayBg),
         ],
-        Text(
-          'Overview',
-          style: TextStyle(
-            color: theme.textMain,
-            fontSize: 14,
-            height: 1.5,
-            fontWeight: FontWeight.w800,
+        if (detail.overview.isNotEmpty) ...[
+          Text(
+            'Overview',
+            style: TextStyle(
+              color: theme.textMain,
+              fontSize: 14,
+              height: 1.5,
+              fontWeight: FontWeight.w800,
+            ),
           ),
-        ),
-        8.heightBox,
-        ReadMoreText(
-          detail.overview,
-          trimMode: TrimMode.Line,
-          trimLines: 3,
-          colorClickableText: AppColor.secondColor,
-          trimCollapsedText: ' Show more',
-          trimExpandedText: ' Show less',
-          style: TextStyle(
-            color: theme.textMain,
-            fontSize: 16,
-            fontWeight: FontWeight.w400,
+          8.heightBox,
+          ReadMoreText(
+            detail.overview,
+            trimMode: TrimMode.Line,
+            trimLines: 3,
+            colorClickableText: AppColor.secondColor,
+            trimCollapsedText: ' Show more',
+            trimExpandedText: ' Show less',
+            style: TextStyle(
+              color: theme.textMain,
+              fontSize: 16,
+              fontWeight: FontWeight.w400,
+            ),
+            moreStyle: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: theme.textSecond,
+            ),
+            lessStyle: TextStyle(
+              fontSize: 14,
+              fontWeight: FontWeight.bold,
+              color: theme.textSecond,
+            ),
           ),
-          moreStyle: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: theme.textSecond,
-          ),
-          lessStyle: TextStyle(
-            fontSize: 14,
-            fontWeight: FontWeight.bold,
-            color: theme.textSecond,
-          ),
-        ),
-        Divider(color: theme.overlayBg),
+          Divider(color: theme.overlayBg),
+        ],
         Text(
           'Casts',
           style: TextStyle(
