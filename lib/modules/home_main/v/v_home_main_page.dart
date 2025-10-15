@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tabler_icons/flutter_tabler_icons.dart';
 import 'package:get/get.dart';
 import 'package:test_prep_2/core/extensions/double_extension.dart';
+import 'package:test_prep_2/core/extensions/int_extension.dart';
 import 'package:test_prep_2/core/widget/w_wiggle_button.dart';
 import 'package:test_prep_2/modules/home_main/c/c_home_main.dart';
 import 'package:test_prep_2/modules/home_main/v/w_keep_alive_page.dart';
@@ -86,7 +87,7 @@ class _HomeMainPageState extends State<HomeMainPage> {
                                   ? AppColor.secondColor
                                   : theme.textThird,
                         ),
-                        const SizedBox(height: 4),
+                        4.heightBox,
                         Text(
                           labels[index],
                           style: TextStyle(
