@@ -19,7 +19,10 @@ class MovieCard extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.to(() => MovieDetailPage(movie: movie, heroKey: heroKey));
+        Get.to(
+          opaque: false,
+          () => MovieDetailPage(movie: movie, heroKey: heroKey),
+        );
       },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(12),
