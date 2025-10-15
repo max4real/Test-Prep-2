@@ -20,7 +20,7 @@ class InkDropPainter extends CustomPainter {
     final scale = size.width / 80.0;
     final trackStrokeWidth = 15 * scale;
     final fillStrokeWidth = 14 * scale;
-    final ballRadius = 7 * scale;
+    final ballRadius = 8 * scale;
     final radiusOffset = 5 * scale;
     final liftHeight = 35.0 * scale;
 
