@@ -3,6 +3,8 @@
 A Flutter application built using the **MVC (Model-View-Controller)** architecture with **GetX** for state management, navigation, and dependency injection.  
 The app integrates **Dio** for HTTP networking, using a custom **Interceptor** to manage API authentication tokens.
 
+Warning: Movie Poster might fail to load if you have weak internet connection.
+
 ---
 
 ## Setup Instructions
